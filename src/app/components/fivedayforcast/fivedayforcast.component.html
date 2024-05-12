@@ -1,0 +1,58 @@
+
+<body style="background-image: url('assets/project background.png');background-size: cover;">
+  
+
+<div class="primarydisplay" *ngIf="primarydispaly">
+  <h3>5-day Forecast</h3>
+  <div class="card-container">
+    <div *ngFor="let forecast of weatherData" class="card">
+      <div class="card-header">
+        {{ forecast.dt_txt | date: 'EEE, MMM dd' }}
+        <img [src]="getWeatherIconUrl(forecast.weather[0].icon)" alt="icon" class="icon">
+  
+      </div>
+     
+      <div class="card-body">
+        <p>
+          <span>Min Temp: {{ forecast.main.temp_min | number: '1.0-0' }}°C</span><br>
+          <span>Max Temp: {{ forecast.main.temp_max | number: '1.0-0' }}°C</span><br>
+          <span>Main Weather: {{ forecast.weather[0].main }}</span>
+        </p>
+      </div>
+      <div class="card-footer">
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-dark"(click)='toggle()'>weekly 3 hour Forecast</button>
+</div>
+
+
+
+<div class="secondary" *ngIf="secondarydispaly">
+  <h3>5-day Forecast   <button type="button" class="btn btn-dark"(click)='toggle()'>Forecast</button> </h3>
+  <div class="card-container">
+    <div *ngFor="let dayForecast of groupedForecast" class="card">
+      <div class="card-header">
+        {{ dayForecast[0]?.dt_txt | date: 'EEE, MMM dd' }}
+
+
+      
+      </div>
+      <div class="card-body">
+        <div *ngFor="let forecast of dayForecast" class="forecast">
+          <p>
+            <span>Date and Time: {{ forecast.dt_txt }}</span><br>
+            <span>Min Temp: {{ forecast.main.temp_min | number: '1.0-0' }}°C</span><br>
+            <span>Max Temp: {{ forecast.main.temp_max | number: '1.0-0' }}°C</span><br>
+            <span>Main Weather: {{ forecast.weather[0].main }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
